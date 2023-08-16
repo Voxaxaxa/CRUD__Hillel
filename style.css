@@ -1,0 +1,213 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(30, 30, 30);
+    margin: 50px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 80%;
+    background-color: rgb(119, 116, 116);
+    border-radius: 20px;
+    text-align: center;
+    font-size: 20px;
+    flex-direction: column;
+    margin: 0 auto 0 auto;
+}
+
+h1 {
+    font-size: 60px;
+    padding: 20px 0 0 0;
+}
+
+.form {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-between;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: rgba(2, 2, 3, 0.2) 0px 6px 35px 0px;
+    background-color: white;
+    position: relative;
+}
+
+.form-control label {
+    font-size: 25px;
+    align-items: center;
+    display: flex;
+}
+
+.form-control input {
+    width: 60%;
+    height: 40px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 10px;
+
+}
+
+.form-control.success input {
+    border-color: green;
+}
+
+.form-control.error input {
+    border-color: red;
+    margin-bottom: 20px;
+}
+
+.form-control.error small {
+    visibility: visible;
+}
+
+.form-control small {
+    color: red;
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    visibility: hidden;
+}
+
+#submit {
+    width: 80%;
+    background-color: rgb(27, 132, 27);
+    height: 50px;
+    border: none;
+    font-size: 25px;
+    color: white;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+
+
+.container-info {
+    margin-top: 20px;
+    max-width: 80%;
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 20px;
+    margin: 20px auto 0 auto;
+    padding: 10px;
+    font-size: 1.5em;
+}
+
+.short-list {
+    border: 1px solid black;
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0 10px 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    flex-wrap: wrap;
+}
+
+.delete-btn {
+    background-color: red;
+    width: 30%;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.edit-btn {
+    background-color: rgb(19, 26, 168);
+    width: 33%;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.view-btn {
+    background-color: rgb(0, 96, 3);
+    width: 33%;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.btn {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.verification {
+    display: flex;
+    justify-content: space-between;
+}
+
+.yes-btn {
+    background-color: red;
+    width: 40%;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+}
+
+.not-btn {
+    background-color: rgb(0, 96, 3);
+    width: 40%;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.full-list-output {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    width: 100%;
+}

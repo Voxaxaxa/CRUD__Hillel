@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>HW_19 CRUD</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Додавання користувача</h1>
+        <form id="form" class="form">
+            <div class="form-control">
+                <label for="username">Ім'я :</label>
+                <input type="text" id="username" placeholder="Enter name">
+                <small>Error</small>
+            </div>
+            <div class="form-control">
+                <label for="surname">Прізвище :</label>
+                <input type="text" id="surname" placeholder="Enter surname:">
+                <small>Error</small>
+            </div>
+            <div class="form-control">
+                <label for="age">Вік :</label>
+                <input type="number" id="age" placeholder="Enter age:">
+                <small>Error</small>
+            </div>
+            <div class="form-control">
+                <label for="email">Email :</label>
+                <input type="text" id="email" placeholder="Enter email:">
+                <small>Error</small>
+            </div>
+            <div class="form-control">
+                <label for="citi">Місто проживання :</label>
+                <input type="text" id="citi" placeholder="Enter citi:">
+                <small>Error</small>
+            </div>
+            <div class="form-control">
+                <label for="phone">Номер телефона :</label>
+                <input id="phone" type="tel" placeholder="Enter your phone number: 096-000-00-00">
+                <small>Error</small>
+            </div>
+            <button id="submit">Відправити форму</button>
+        </form>
+    </div>
+
+    <div class="container-info">
+        <h2>Додані користувачі</h2>
+        <div id="container-output"> </div>
+
+
+        <script src="/app.js"></script>
+</body>
+
+</html>
