@@ -53,7 +53,219 @@
         <div id="container-output"> </div>
 
 
-        <script src="/app.js"></script>
+        <script>
+            $(function () {
+                $("#phone").mask("+3(999) 999-99-99");
+            });
+
+            const $btn_form = document.getElementById("submit");
+            const form = document.getElementById("fjrm");
+            const $name = document.getElementById("username");
+            const $surname = document.getElementById("surname");
+            const $age = document.getElementById("age");
+            const $email = document.getElementById("email");
+            const $citi = document.getElementById("citi");
+            const $phone = document.getElementById("phone");
+
+
+            function getFieldName(input) {
+                return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+            }
+
+
+            function showError(input, message) {
+                const formControl = input.parentElement;
+                const small = formControl.querySelector("small");
+
+                formControl.className = "form-control error";
+                small.textContent = message;
+            }
+
+
+            function showSuccess(input) {
+                const formControl = input.parentElement;
+                formControl.className = "form-control success";
+            }
+
+
+            function checkRequired(inputArr) {
+                let isValid = true;
+
+                inputArr.forEach(input => {
+                    if (input.value.trim() === "") {
+                        showError(input, `${getFieldName(input)} is required`);
+                        isValid = false;
+                    } else {
+                        showSuccess(input);
+                    }
+                });
+
+                return isValid;
+            }
+
+
+            function checkLength(input, min, max) {
+                if (input.value.length < min) {
+                    showError(input, `${getFieldName(input)} must be at least ${min} characters`);
+                    return false;
+                } else if (input.value.length > max) {
+                    showError(input, `${getFieldName(input)} must be less than ${max} characters`);
+                    return false;
+                } else {
+                    showSuccess(input);
+                    return true;
+                }
+            }
+
+
+            let localStorageUser = JSON.parse(localStorage.getItem("user"));
+            let userData = localStorage.getItem("user") !== null ? localStorageUser : [];
+
+
+            function generationId() {
+                return Math.floor(Math.random() * 1000000);
+            }
+
+
+            $btn_form.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                const areRequiredValid = checkRequired([$name, $surname, $age, $email, $citi, $phone]);
+                const nameValid = checkLength($name, 2, 30);
+                const surnameValid = checkLength($surname, 2, 30);
+                const emailValid = checkLength($email, 3, 30);
+                const citiValid = checkLength($citi, 2, 30);
+
+
+                if (areRequiredValid && nameValid && surnameValid && emailValid && citiValid) {
+
+                    const user = {
+                        name: $name.value,
+                        surname: $surname.value,
+                        age: $age.value,
+                        email: $email.value,
+                        citi: $citi.value,
+                        phone: $phone.value,
+                        id: generationId(),
+                    }
+
+                    userData.push(user);
+                    updateLocalStorage();
+
+                    creationShortList();
+                }
+                $name.value = "";
+                $surname.value = "";
+                $age.value = "";
+                $email.value = "";
+                $citi.value = "";
+                $phone.value = "";
+            });
+
+
+            function updateLocalStorage() {
+                localStorage.setItem("user", JSON.stringify(userData));
+            }
+
+
+            function creationShortList() {
+                const classContainerOut = document.getElementById("container-output");
+                classContainerOut.innerHTML = "";
+
+                userData.forEach((user) => {
+                    const $li = document.createElement("li");
+                    $li.classList.add('short-list');
+
+                    $li.innerHTML = `
+            ${user.name}
+            <div class="btn" data-id="${user.id}">
+                <button class="delete-btn" onclick="showVerification(${user.id})">Видалити</button>
+                <button class="edit-btn" onclick="editUser (${user.id})">Редагувати</button>
+                <button class="view-btn" onclick="showFulltList (${user.id})">Переглянути</button>
+            </div>
+            <div class="verification" style="display: none;" data-id="${user.id}">
+                Ви дійсно бажаєте видалити цього користувача?
+                <button class="yes-btn" onclick="removeUser(${user.id})">ТАК</button>
+                <button class="not-btn" onclick="hideVerification(${user.id})">Ні</button>
+            </div>
+            <div class="full-list-output" style="display: none;" data-id="${user.id}">
+                <div> Ім'я : ${user.name} </div>
+                <div>Прізвище: ${user.surname}</div>
+                <div>Вік : ${user.age}</div>
+                <div>Email: ${user.email}</div>
+                <div>Місто проживання: ${user.citi}</div>
+                <div>Номер телефона: ${user.phone}</div>
+            </div>
+        `;
+                    classContainerOut.appendChild($li);
+                });
+            }
+
+
+            function editUser(id) {
+                const userToEdit = userData.find((user) => user.id === id);
+
+                if (userToEdit) {
+                    $name.value = userToEdit.name;
+                    $surname.value = userToEdit.surname;
+                    $age.value = userToEdit.age;
+                    $email.value = userToEdit.email;
+                    $citi.value = userToEdit.citi;
+                    $phone.value = userToEdit.phone;
+
+
+                    userData = userData.filter((user) => user.id !== id);
+                    creationShortList();
+                }
+            }
+
+
+            function showFulltList(id) {
+                const verificationDiv = document.querySelector(`.full-list-output[data-id="${id}"]`);
+
+                if (verificationDiv.style.display === 'none') {
+                    verificationDiv.style.display = 'block';
+                } else {
+                    verificationDiv.style.display = 'none';
+                }
+            }
+
+
+            function showVerification(id) {
+                const verificationDiv = document.querySelector(`.verification[data-id="${id}"]`);
+                const btnDiv = document.querySelector(`.btn[data-id="${id}"]`);
+
+                if (verificationDiv && btnDiv) {
+                    verificationDiv.style.display = 'flex';
+                    btnDiv.style.display = 'none';
+                }
+            }
+
+
+            function hideVerification(id) {
+                const verificationDiv = document.querySelector(`.verification[data-id="${id}"]`);
+                const btnDiv = document.querySelector(`.btn[data-id="${id}"]`);
+
+                verificationDiv.style.display = 'none';
+                btnDiv.style.display = 'flex';
+            }
+
+
+            function removeUser(id) {
+                userData = userData.filter((userData) => userData.id !== id);
+                updateLocalStorage();
+                creationShortList();
+
+                $name.value = "";
+                $surname.value = "";
+                $age.value = "";
+                $email.value = "";
+                $citi.value = "";
+                $phone.value = "";
+            }
+
+            creationShortList();
+        </script>
 </body>
 
 </html>
